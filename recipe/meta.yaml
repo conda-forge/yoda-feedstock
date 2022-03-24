@@ -26,6 +26,7 @@ requirements:
   host:
     - python
     - root_base
+    - cython >= 0.24
     - zlib
   run:
     - python
