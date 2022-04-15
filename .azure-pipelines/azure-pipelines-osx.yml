@@ -26,6 +26,18 @@ jobs:
       osx_64_python3.9.____cpythonroot_base6.26.2:
         CONFIG: osx_64_python3.9.____cpythonroot_base6.26.2
         UPLOAD_PACKAGES: 'True'
+      osx_arm64_python3.8.____cpythonroot_base6.26.0:
+        CONFIG: osx_arm64_python3.8.____cpythonroot_base6.26.0
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_python3.8.____cpythonroot_base6.26.2:
+        CONFIG: osx_arm64_python3.8.____cpythonroot_base6.26.2
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_python3.9.____cpythonroot_base6.26.0:
+        CONFIG: osx_arm64_python3.9.____cpythonroot_base6.26.0
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_python3.9.____cpythonroot_base6.26.2:
+        CONFIG: osx_arm64_python3.9.____cpythonroot_base6.26.2
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
   steps:
