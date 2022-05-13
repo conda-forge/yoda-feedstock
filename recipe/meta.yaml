@@ -1,5 +1,5 @@
 {% set name = "yoda" %}
-{% set version = "1.9.4" %}
+{% set version = "1.9.5" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://yoda.hepforge.org/downloads?f=YODA-{{ version }}.tar.gz
-  sha256: 02d89e37fbe01c5b19140e7ded9082930f76bf3d15a6ff9742fd52c8f0e738d7
+  sha256: f07704f046d12b35814acc5d9e12675d98d54391b794b57d72ac11349c74a5bf
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win or ppc64le]
 
 requirements:
