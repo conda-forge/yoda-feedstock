@@ -30,6 +30,7 @@ requirements:
     - zlib
   run:
     - python
+    - matplotlib
 
 test:
   imports:
