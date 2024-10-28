@@ -1,5 +1,5 @@
 {% set name = "yoda" %}
-{% set version = "1.9.6" %}
+{% set version = "2.0.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://yoda.hepforge.org/downloads?f=YODA-{{ version }}.tar.gz
-  sha256: 5c57914eb8d8068844560e3a3e545f68d89ca49796dcc0932cdd42ee62064955
+  sha256: caa1301372ab8d911c8a9e5b2f9dfa31b12fddd39cfb56237499e5705020bede
 
 build:
-  number: 7
+  number: 0
   skip: true  # [win or ppc64le]
 
 requirements:
@@ -19,6 +19,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - pkg-config
     - make
