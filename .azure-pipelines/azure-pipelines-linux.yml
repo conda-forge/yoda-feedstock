@@ -24,6 +24,14 @@ jobs:
         CONFIG: linux_64_python3.11.____cpythonroot_base6.30.4
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_python3.12.____cpythonroot_base6.28.12:
+        CONFIG: linux_64_python3.12.____cpythonroot_base6.28.12
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+      linux_64_python3.12.____cpythonroot_base6.30.4:
+        CONFIG: linux_64_python3.12.____cpythonroot_base6.30.4
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
       linux_64_python3.8.____cpythonroot_base6.28.12:
         CONFIG: linux_64_python3.8.____cpythonroot_base6.28.12
         UPLOAD_PACKAGES: 'True'
@@ -41,6 +49,7 @@ jobs:
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
   timeoutInMinutes: 360
+  variables: {}
 
   steps:
   # configure qemu binfmt-misc running.  This allows us to run docker containers
