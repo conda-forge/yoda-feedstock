@@ -1,0 +1,82 @@
+schema_version: 1
+
+context:
+  name: yoda
+  version: 2.0.1
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://yoda.hepforge.org/downloads?f=YODA-${{ version }}.tar.gz
+  sha256: 28a900b62b0ac967edfd1a64196c1518a1adcec12b08da5ff4ae5adff6a69662
+
+build:
+  number: 0
+  skip: win or ppc64le
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: unix
+      then: gnuconfig
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler('cxx') }}
+    - pkg-config
+    - make
+    - autoconf
+  host:
+    - python
+    - root_base
+    - cython >=0.24
+    - zlib
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - yoda
+  - script:
+      - aida2flat --help
+      - flat2yoda --help
+      - root2yoda --help
+      - yoda2flat --help
+      - yoda2yoda --help
+      - yodacnv --help
+      - yoda-config --help
+      - yodadiff --help
+      - yodals --help
+      - yodaplot --help
+      - yodastack --help
+      - aida2yoda --help
+      - yoda2aida --help
+      - yoda2root --help
+      - yodacmp --help
+      - yodahist --help
+      - yodamerge --help
+      - yodascale --help
+
+about:
+  license: GPL-3.0-only
+  license_file: COPYING
+  summary: Yet more Objects for Data Analysis
+  description: |
+    YODA is a small set of data analysis (specifically histogramming) classes
+    being developed by MCnet members as a lightweight common system for MC
+    event generator validation analyses, particularly as the core histogramming
+    system in Rivet.
+
+
+  homepage: https://yoda.hepforge.org/
+  repository: https://gitlab.com/hepcedar/yoda/
+  documentation: https://gitlab.com/hepcedar/yoda/
+
+extra:
+  recipe-maintainers:
+    - chrisburr
