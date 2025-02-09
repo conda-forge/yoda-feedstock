@@ -52,24 +52,18 @@ tests:
       imports:
         - yoda
   - script:
-      - aida2flat --help
-      - flat2yoda --help
       - root2yoda --help
-      - yoda2flat --help
+      - yoda-config --help
+      - yoda2root --help
       - yoda2yoda --help
       - yodacnv --help
-      - yoda-config --help
       - yodadiff --help
+      - yodaenvelope --help
       - yodals --help
-      - yodaplot --help
-      - yodastack --help
-      - aida2yoda --help
-      - yoda2aida --help
-      - yoda2root --help
-      - yodacmp --help
-      - yodahist --help
       - yodamerge --help
+      - yodaplot --help
       - yodascale --help
+      - yodastack --help
 
 about:
   license: GPL-3.0-only
