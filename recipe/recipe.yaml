@@ -44,7 +44,7 @@ requirements:
     - root_base
     - cython >=0.24
     - zlib
-    - matplotlib_base
+    - matplotlib-base
   run:
     - python
 
