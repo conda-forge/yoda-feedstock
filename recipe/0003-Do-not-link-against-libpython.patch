@@ -1,4 +1,4 @@
-From e3f2de053355db626c2416d5190a4b30dca4e81d Mon Sep 17 00:00:00 2001
+From 0497f392557c598d66fac3316607a67e214bfe2e Mon Sep 17 00:00:00 2001
 From: Chris Burr <christopher.burr@cern.ch>
 Date: Sun, 9 Feb 2025 23:00:36 +0100
 Subject: [PATCH 3/3] Do not link against libpython

@@ -1,4 +1,4 @@
-From f12768f58547da2d4f87fc6e375e6f9c6442f187 Mon Sep 17 00:00:00 2001
+From 20cf681dfb6d053e72b0d3f94e6b7326f6bac7bb Mon Sep 17 00:00:00 2001
 From: Chris Burr <christopher.burr@cern.ch>
 Date: Sun, 9 Feb 2025 22:57:41 +0100
 Subject: [PATCH 2/3] Support overriding install_name_tool
@@ -9,14 +9,14 @@ Subject: [PATCH 2/3] Support overriding install_name_tool
  2 files changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 8df2f676..86e1e433 100644
+index 8df2f676..f9133c2d 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -27,6 +27,7 @@ AC_DEFINE_UNQUOTED(YODA_BUGREPORT, "$PACKAGE_BUGREPORT", "YODA contact email add
  
  ## OS X
  AC_CEDAR_OSX
-+AC_PATH_PROG([INSTALL_NAME_TOOL], [install_name_tool], [install_name_tool])
++AC_PATH_PROG([INSTALL_NAME_TOOL], [$INSTALL_NAME_TOOL install_name_tool])
  
  ## Set default compiler flags
  if test "x$CXXFLAGS" = "x"; then CXXFLAGS="-O3"; fi
