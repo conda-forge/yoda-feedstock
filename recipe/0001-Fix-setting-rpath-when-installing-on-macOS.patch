@@ -1,4 +1,4 @@
-From 05ddce98340bbd47ff15b54e4bbe6d561880a50f Mon Sep 17 00:00:00 2001
+From ca8b128f9aabd5f27a758a0d1a693908459313f3 Mon Sep 17 00:00:00 2001
 From: Chris Burr <christopher.burr@cern.ch>
 Date: Sun, 9 Feb 2025 05:43:56 +0100
 Subject: [PATCH] Fix setting rpath when installing on macOS
@@ -8,7 +8,7 @@ Subject: [PATCH] Fix setting rpath when installing on macOS
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/pyext/Makefile.am b/pyext/Makefile.am
-index 5867aa05..98feac73 100644
+index 5867aa05..858dfd42 100644
 --- a/pyext/Makefile.am
 +++ b/pyext/Makefile.am
 @@ -29,7 +29,7 @@ install-exec-local: build/yoda/core.so
@@ -16,7 +16,7 @@ index 5867aa05..98feac73 100644
          $(abs_top_srcdir)/src/.libs/libYODA.dylib \
          $(libdir)/libYODA.dylib \
 -        $(abs_builddir)/build/yoda/core.so
-+        $(DESTDIR)$(YODA_PYTHONPATH)/core.so
++        $(DESTDIR)$(YODA_PYTHONPATH)/yoda/core.so
  
  else
  
