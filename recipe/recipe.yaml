@@ -11,17 +11,21 @@ package:
 source:
   url: https://yoda.hepforge.org/downloads?f=YODA-${{ version }}.tar.gz
   sha256: 28a900b62b0ac967edfd1a64196c1518a1adcec12b08da5ff4ae5adff6a69662
+  file_name: YODA-${{ version }}.tar.gz
+  # Can't apply patches here, see: https://github.com/prefix-dev/rattler-build/issues/1418
+  # patches:
+  #   - 0001-Fix-setting-rpath-when-installing-on-macOS.patch
 
 build:
   number: 0
-  skip: win or ppc64le
+  skip: win
 
 requirements:
   build:
     - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
+      then:
+        - python
+        - cross-python_${{ target_platform }}
     - if: unix
       then: gnuconfig
     - ${{ compiler('c') }}
@@ -30,6 +34,7 @@ requirements:
     - pkg-config
     - make
     - autoconf
+    - automake
   host:
     - python
     - root_base

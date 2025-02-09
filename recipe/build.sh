@@ -1,8 +1,14 @@
 #!/bin/bash
+
+# See: https://github.com/prefix-dev/rattler-build/issues/1418
+tar xvf YODA-*.tar.gz --strip-components=1
+patch --batch -p1 < "$RECIPE_DIR/0001-Fix-setting-rpath-when-installing-on-macOS.patch"
+
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
-autoconf
+# Regenerate the configure script
+autoreconf -fvi
 
 # Make sure the cython sources are recompiled
 rm pyext/yoda/core.cpp pyext/yoda/util.cpp
