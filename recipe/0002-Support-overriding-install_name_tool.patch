@@ -1,0 +1,47 @@
+From 20cf681dfb6d053e72b0d3f94e6b7326f6bac7bb Mon Sep 17 00:00:00 2001
+From: Chris Burr <christopher.burr@cern.ch>
+Date: Sun, 9 Feb 2025 22:57:41 +0100
+Subject: [PATCH 2/3] Support overriding install_name_tool
+
+---
+ configure.ac      | 1 +
+ pyext/Makefile.am | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 8df2f676..f9133c2d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -27,6 +27,7 @@ AC_DEFINE_UNQUOTED(YODA_BUGREPORT, "$PACKAGE_BUGREPORT", "YODA contact email add
+ 
+ ## OS X
+ AC_CEDAR_OSX
++AC_PATH_PROG([INSTALL_NAME_TOOL], [$INSTALL_NAME_TOOL install_name_tool])
+ 
+ ## Set default compiler flags
+ if test "x$CXXFLAGS" = "x"; then CXXFLAGS="-O3"; fi
+diff --git a/pyext/Makefile.am b/pyext/Makefile.am
+index 858dfd42..aee8c911 100644
+--- a/pyext/Makefile.am
++++ b/pyext/Makefile.am
+@@ -18,7 +18,7 @@ if WITH_OSX
+ build/yoda/core.so: build.py yoda/core.cpp $(PYCORE_SRC)
+ 	cd $(srcdir); \
+ 	$(PYEXT_ENV) YODA_LOCAL=1 $(PYTHON) $(abs_builddir)/build.py
+-	install_name_tool -change \
++	$(INSTALL_NAME_TOOL) -change \
+         $(libdir)/libYODA.dylib \
+         $(abs_top_srcdir)/src/.libs/libYODA.dylib \
+         $(abs_builddir)/build/yoda/core.so
+@@ -26,7 +26,7 @@ build/yoda/core.so: build.py yoda/core.cpp $(PYCORE_SRC)
+ install-exec-local: build/yoda/core.so
+ 	$(MKDIR_P) $(DESTDIR)$(YODA_PYTHONPATH); \
+ 	cp -r $(abs_builddir)/build/yoda $(DESTDIR)$(YODA_PYTHONPATH)/
+-	install_name_tool -change \
++	$(INSTALL_NAME_TOOL) -change \
+         $(abs_top_srcdir)/src/.libs/libYODA.dylib \
+         $(libdir)/libYODA.dylib \
+         $(DESTDIR)$(YODA_PYTHONPATH)/yoda/core.so
+-- 
+2.47.0
+

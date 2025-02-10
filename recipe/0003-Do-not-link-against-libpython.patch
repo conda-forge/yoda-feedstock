@@ -1,0 +1,33 @@
+From 0497f392557c598d66fac3316607a67e214bfe2e Mon Sep 17 00:00:00 2001
+From: Chris Burr <christopher.burr@cern.ch>
+Date: Sun, 9 Feb 2025 23:00:36 +0100
+Subject: [PATCH 3/3] Do not link against libpython
+
+---
+ pyext/build.py.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pyext/build.py.in b/pyext/build.py.in
+index 9c2e00ac..580ffc4e 100644
+--- a/pyext/build.py.in
++++ b/pyext/build.py.in
+@@ -30,6 +30,8 @@ cmpargs += " @CXXFLAGS@"
+ linkargs = " ".join("-L{}".format(d) for d in lookupdirs)
+ linkargs += " -L@abs_top_builddir@/src/.libs" if "YODA_LOCAL" in os.environ else "-L@prefix@/lib"
+ linkargs += " @LDFLAGS@"
++if platform.system() == "Darwin":
++    linkargs += " -Wl,-undefined,dynamic_lookup"
+ 
+ ## Library args
+ libraries = ["YODA"]
+@@ -49,7 +51,6 @@ if libpy is None:
+     print("No libpython found in expected location exiting")
+     print("Considered locations were:", libpys)
+     sys.exit(1)
+-pyargs += " " + libpy
+ pyargs += " " + sysconfig.get_config_var("LIBS")
+ pyargs += " " + sysconfig.get_config_var("LIBM")
+ #pyargs += " " + sysconfig.get_config_var("LINKFORSHARED")
+-- 
+2.47.0
+
