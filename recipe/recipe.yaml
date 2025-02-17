@@ -19,7 +19,7 @@ source:
   #   - 0003-Do-not-link-against-libpython.patch
 
 build:
-  number: 0
+  number: 1
   skip: win
 
 requirements:
