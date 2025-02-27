@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: yoda
-  version: 2.0.1
+  version: 2.0.3
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://yoda.hepforge.org/downloads?f=YODA-${{ version }}.tar.gz
-  sha256: 28a900b62b0ac967edfd1a64196c1518a1adcec12b08da5ff4ae5adff6a69662
+  sha256: 62a5f2446600c426fe9b4a2d45416833ccb65e3b00b44b5e96f611e46a55020e
   file_name: YODA-${{ version }}.tar.gz
   # Can't apply patches here, see: https://github.com/prefix-dev/rattler-build/issues/1418
   # patches:
@@ -19,7 +19,7 @@ source:
   #   - 0003-Do-not-link-against-libpython.patch
 
 build:
-  number: 2
+  number: 0
   skip: win
 
 requirements:
