@@ -340,4 +340,5 @@ Feedstock Maintainers
 =====================
 
 * [@chrisburr](https://github.com/chrisburr/)
+* [@conda-forge/hepmc3](https://github.com/orgs/conda-forge/teams/hepmc3/)
 
