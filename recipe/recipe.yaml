@@ -85,3 +85,4 @@ about:
 extra:
   recipe-maintainers:
     - chrisburr
+    - conda-forge/hepmc3
