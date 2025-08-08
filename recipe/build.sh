@@ -12,9 +12,6 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* .
 # Regenerate the configure script
 autoreconf -fvi
 
-# Make sure the cython sources are recompiled
-rm pyext/yoda/core.cpp pyext/yoda/util.cpp
-
 declare -a CONFIGURE_ARGS
 CONFIGURE_ARGS+=("--prefix=${PREFIX}")
 CONFIGURE_ARGS+=("--libdir=${PREFIX}/lib")
