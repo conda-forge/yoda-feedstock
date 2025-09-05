@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://yoda.hepforge.org/downloads?f=YODA-${{ version }}.tar.gz
-  sha256: 6e1f0aa25871eb3d0a7d5b8fc75281cff9b7f3e48ec83507aa0c3614d314d582
+  sha256: 6f71fc4912c66a958588e4c981ffe505a461d338a52adf5b13b93274dcd72679
   file_name: YODA-${{ version }}.tar.gz
   # Can't apply patches here, see: https://github.com/prefix-dev/rattler-build/issues/1418
   # patches:
