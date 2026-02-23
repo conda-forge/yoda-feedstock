@@ -22,3 +22,12 @@ fi
 make -j${CPU_COUNT}
 
 make -j${CPU_COUNT} install
+
+# Shell completions
+# Bash completions
+mkdir -p "${PREFIX}"/share/bash-completion/completions
+cp ./bin/yoda-completion "${PREFIX}"/share/bash-completion/completions/yoda
+
+# ZSH completions
+mkdir -p "${PREFIX}"/share/zsh/site-functions
+cp ./bin/yoda-completion "${PREFIX}"/share/zsh/site-functions/_yoda
