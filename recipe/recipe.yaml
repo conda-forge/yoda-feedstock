@@ -1,11 +1,10 @@
 schema_version: 1
 
 context:
-  name: yoda
   version: "2.1.2"
 
 package:
-  name: ${{ name|lower }}
+  name: yoda
   version: ${{ version }}
 
 source:
@@ -21,6 +20,9 @@ build:
   skip: win
 
 requirements:
+  run_exports:
+    - ${{ pin_subpackage("yoda", upper_bound="x.x") }}
+
   build:
     - ${{ stdlib("c") }}
     - ${{ compiler("cxx") }}
@@ -44,9 +46,41 @@ requirements:
     - matplotlib-base
 
 tests:
+  - package_contents:
+      strict: true
+      bin:
+       - root2yoda
+       - yoda-config
+       - yoda2root
+       - yoda2yoda
+       - yodacnv
+       - yodadiff
+       - yodaenvelope
+       - yodals
+       - yodamerge
+       - yodaplot
+       - yodascale
+       - yodastack
+      lib:
+        - YODA
+      include:
+        - YODA/*
+      files:
+        - share/bash-completion/completions/yoda
+        - share/zsh/site-functions/_yoda
+        - lib/pkgconfig/yoda.pc
+        - share/YODA/*
+        - etc/bash_completion.d/yoda-completion
+      site_packages:
+        - yoda
+        - yoda.plotting
+        - yoda/*
+
   - python:
       imports:
         - yoda
+        - yoda.plotting
+
   - script:
       - root2yoda --help
       - yoda-config --help
