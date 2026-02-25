@@ -1,0 +1,76 @@
+From 105d00cfb33ae1b93ff06e722084d7095cd9a0b1 Mon Sep 17 00:00:00 2001
+From: Matthew Feickert <matthew.feickert@cern.ch>
+Date: Wed, 25 Feb 2026 22:10:28 +0100
+Subject: [PATCH] fix: Correct Python include paths and linking behavior
+
+* Use sysconfig.get_path("include") instead of
+  sysconfig.get_config_var("INCLUDEPY") to find Python headers, as the latter
+  returns the stale build-time path which may not match the installed prefix.
+* Do not link extension modules against libpython on any platform. Python
+  symbols are resolved at runtime from the interpreter. Linking libpython
+  directly causes duplicate PyModuleDef_Type symbols which breaks PEP 489
+  multi-phase module initialization, resulting in "initialization of core
+  did not return an extension module". On macOS, use
+  '-undefined dynamic_lookup' for deferred symbol resolution.
+
+Co-authored-by: Chris Burr <christopher.burr@cern.ch>
+---
+ pyext/build.py.in | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
+
+diff --git a/pyext/build.py.in b/pyext/build.py.in
+index 61d5b735..9164bc57 100644
+--- a/pyext/build.py.in
++++ b/pyext/build.py.in
+@@ -21,7 +21,7 @@ incargs = " ".join("-I{}".format(d) for d in incdirs)
+ incargs += " -I@prefix@/include"
+ incargs += " @HDF5_CPPFLAGS@"
+ incargs += " @CPPFLAGS@"
+-incargs += " -I" + sysconfig.get_config_var("INCLUDEPY")
++incargs += " -I" + sysconfig.get_path("include")
+ 
+ ## Compile args
+ cmpargs = "@PYEXT_CXXFLAGS@"
+@@ -32,6 +32,8 @@ linkargs = " ".join("-L{}".format(d) for d in lookupdirs)
+ linkargs += " -L@abs_top_builddir@/src/.libs" if "YODA_LOCAL" in os.environ else "-L@prefix@/lib"
+ linkargs += " @RPATH_HDF5_LDFLAGS@"
+ linkargs += " @LDFLAGS@"
++if platform.system() == "Darwin":
++    linkargs += " -Wl,-undefined,dynamic_lookup"
+ 
+ ## Library args
+ libraries = ["YODA"]
+@@ -39,23 +41,15 @@ libargs = " ".join("-l{}".format(l) for l in libraries)
+ libargs += " @HDF5_LIBS@"
+ 
+ ## Python compile/link args
+-pyargs = "-I" + sysconfig.get_config_var("INCLUDEPY")
+-libpys = [os.path.join(sysconfig.get_config_var(ld), sysconfig.get_config_var("LDLIBRARY")) for ld in ["LIBPL", "LIBDIR"]]
+-libpys.extend( glob(os.path.join(sysconfig.get_config_var("LIBPL"), "libpython*.*")) )
+-libpys.extend( glob(os.path.join(sysconfig.get_config_var("LIBDIR"), "libpython*.*")) )
+-libpy = None
+-for lp in libpys:
+-    if os.path.exists(lp):
+-        libpy = lp
+-        break
+-if libpy is None:
+-    print("No libpython found in expected location exiting")
+-    print("Considered locations were:", libpys)
+-    sys.exit(1)
+-pyargs += " " + libpy
++# Do not link against libpython. Extension modules resolve Python
++# symbols at runtime from the interpreter. Linking libpython directly
++# can cause duplicate symbols and breaks PEP 489 multi-phase init.
++pyargs = "-I" + sysconfig.get_path("include")
++if platform.system() == "Darwin":
++    pyargs += " -undefined dynamic_lookup"
++
+ pyargs += " " + sysconfig.get_config_var("LIBS")
+ pyargs += " " + sysconfig.get_config_var("LIBM")
+-#pyargs += " " + sysconfig.get_config_var("LINKFORSHARED")
+ 
+ 
+ ## (Re)make the build/yoda dir and copy in Python sources
+-- 
+2.53.0
+
