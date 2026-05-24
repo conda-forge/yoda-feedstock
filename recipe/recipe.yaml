@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "2.1.2"
+  version: "2.1.3"
 
 package:
   name: yoda
@@ -9,14 +9,14 @@ package:
 
 source:
   url: https://yoda.hepforge.org/downloads?f=YODA-${{ version }}.tar.gz
-  sha256: fa181b21d02939e7ce84534b8c10659a19b7398da651188d260322ba80cbd1d2
+  sha256: 786a432da252891969ae5045775afb3858675f04e66eac8c98ea5a7a360888c2
   patches:
     - 0001-Fix-setting-rpath-when-installing-on-macOS.patch
     - 0002-Support-overriding-install_name_tool.patch
     - fix-python-includes-and-linking.patch
 
 build:
-  number: 1
+  number: 0
   skip: win
 
 requirements:
@@ -49,18 +49,18 @@ tests:
   - package_contents:
       strict: true
       bin:
-       - root2yoda
-       - yoda-config
-       - yoda2root
-       - yoda2yoda
-       - yodacnv
-       - yodadiff
-       - yodaenvelope
-       - yodals
-       - yodamerge
-       - yodaplot
-       - yodascale
-       - yodastack
+        - root2yoda
+        - yoda-config
+        - yoda2root
+        - yoda2yoda
+        - yodacnv
+        - yodadiff
+        - yodaenvelope
+        - yodals
+        - yodamerge
+        - yodaplot
+        - yodascale
+        - yodastack
       lib:
         - YODA
       include:
