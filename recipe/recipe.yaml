@@ -16,7 +16,7 @@ source:
     - fix-python-includes-and-linking.patch
 
 build:
-  number: 1
+  number: 2
   skip: win
 
 requirements:
@@ -37,6 +37,8 @@ requirements:
     - autoconf
     - automake
     - libtool
+    - sed
+    - grep
   host:
     - python
     - cython >=0.24
@@ -81,7 +83,10 @@ tests:
         - yoda
         - yoda.plotting
 
-  - script:
+  - requirements:
+      run:
+        - grep
+    script:
       - root2yoda --help
       - yoda-config --help
       - yoda2root --help
@@ -94,6 +99,24 @@ tests:
       - yodaplot --help
       - yodascale --help
       - yodastack --help
+      # Ensure no build machine paths leak into yoda-config.
+      # The patterns mirror the build.sh guard: BUILD_PREFIX (build_env),
+      # stripped -f*-prefix-map= flags, and SRC_DIR (the rattler-build work
+      # directory).
+      - if grep -E 'build_env|prefix-map=|rattler-build_yoda_[0-9]+/work' "${CONDA_PREFIX}/bin/yoda-config"; then exit 1; fi
+
+      - yoda-config --prefix
+      - yoda-config --datadir
+      - yoda-config --includedir
+      - yoda-config --libdir
+      - yoda-config --pythonpath
+      - yoda-config --cxx
+      - yoda-config --cxxflags
+      - yoda-config --cppflags
+      - yoda-config --libs
+      - yoda-config --ldflags
+      - yoda-config --ldlibs
+      - yoda-config --version
 
 about:
   license: GPL-3.0-only
