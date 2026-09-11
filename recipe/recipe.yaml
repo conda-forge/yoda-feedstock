@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "2.1.3"
+  version: "2.1.4"
 
 package:
   name: yoda
@@ -9,14 +9,14 @@ package:
 
 source:
   url: https://yoda.hepforge.org/downloads?f=YODA-${{ version }}.tar.gz
-  sha256: 786a432da252891969ae5045775afb3858675f04e66eac8c98ea5a7a360888c2
+  sha256: 1a13aabdfe8d230cfb4a1107ed856608928bb3131e6ce0adf46b5b43934f17f7
   patches:
     - 0001-Fix-setting-rpath-when-installing-on-macOS.patch
     - 0002-Support-overriding-install_name_tool.patch
     - fix-python-includes-and-linking.patch
 
 build:
-  number: 2
+  number: 0
   skip: win
 
 requirements:
