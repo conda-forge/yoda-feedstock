@@ -120,7 +120,7 @@ tests:
 
 about:
   license: GPL-3.0-only
-  license_file: COPYING
+  license_file: LICENSE
   summary: Yet more Objects for Data Analysis
   description: |
     YODA is a small set of data analysis (specifically histogramming) classes
