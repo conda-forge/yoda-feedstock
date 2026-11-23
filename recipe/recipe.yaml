@@ -32,7 +32,7 @@ requirements:
         - cross-python_${{ target_platform }}
     - if: unix
       then: gnuconfig
-    - pkg-config
+    - pkgconf
     - make
     - autoconf
     - automake
